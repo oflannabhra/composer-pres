@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>reveal.js - The HTML Presentation Framework</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="Hakim El Hattab">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+	<!-- Code syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Composer</h1>
+					<h3>It's awesome.</h3>
+					<h5>Who am I?</h5>
+					<p>
+						<small>Ben Flannery <a href="mailto:oflannabhra@gmail.com"></a> / <a href="http://twitter.com/oflannabhra">@oflannabhra</a> / <a href="http://www.github.com/oflannabhra">GitHub</a></small>
+					</p>
+				</section>
+
+				<section>
+
+					<h2>Why Composer?</h2>
+
+					<p>To answer that, we need to know what problems Composer solves.</p>
+
+					<p>
+						<dl>	
+							<dt class="fragment"><strong>FACT:</strong></dt>
+							<dd class="fragment">Software packages change and mature.</dd>
+							<dt class="fragment"><strong>FACT:</strong></dt>
+							<dd class="fragment">Some software packages depend on other software packages.</dd>
+							<dt class="fragment"><strong>FACT:</strong></dt>
+							<dd class="fragment">It would be nice to use software packages easily and painlessly</dd>
+							<dt class="fragment"><strong>FACT:</strong></dt>
+							<dd class="fragment">Writing everything yourself sucks</dd>
+						</dl>
+					</p>
+					<aside class="notes">
+						Just like with programming languages (eg, PHP 4 -> PHP 5) new versions do not always maintain backwards compatibility (Thankfully!). But, as things change, we need a way to control who gets those changes
+					</aside>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<section>
+						<h2>So What does Composer offer?</h2>
+						<br>
+						<ul class="fragment">
+							<li>Automatic Dependency Management</li>
+							<li>A HUGE library of well-maintained code</li>
+							<li>Great tools for automatic deployment</li>
+						</ul>
+						<br>
+						<h3>And... what exactly is it?</h3>
+						<p class="fragment"> Composer is a command line tool for automatically handling different versions of software libraries (called "packages") that integrates with a large repository of packages (and provides functionality for creating your own repository)</p>
+					</section>
+					<section>
+						<h2>More details about Composer</h2>
+						<img width="300" height="356" src="https://getcomposer.org/img/logo-composer-transparent.png"><br>
+						<small>
+							<ul>
+								<li><code>Website --> </code><a href="https://getcomposer.org/">getcomposer.org</a></li>
+								<li><code>Source ---> </code><a href="https://github.com/composer/composer">github</a></li>
+								<li><code>Docs -----> </code><a href="https://getcomposer.org/doc/">Documentation</a></li>
+								<li><code>Packages -> </code><a href="https://packagist.org/">Packagist.org</a></li>
+							</ul>
+						</small>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Installation</h2>
+						<p>
+							Okay, great, you've convinced me that Composer is the new hotness. How the heck do I use it?
+						</p>
+						<h5>Linux / OSX</h5>
+						<pre>
+							<code>curl -s https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer</code>
+						</pre>
+						<p>
+							These commands do the following: downloads the installer.php script from the web and automatically sends it to a php process. It then moves the composer.phar file (a php archive) to a folder in your system $PATH
+						</p>
+					</section>
+					<section>
+						<h2>Other OSes</h2>
+						Alternatively, with Homebrew (OS X)
+						<pre>
+							<code>brew install composer</code>
+						</pre>
+						<br>
+						Windows
+						<p>
+							<a href="https://getcomposer.org/Composer-Setup.exe">Windows.exe</a>
+						</p>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>So how's it work?</h2>
+					<p>
+						Composer uses a config file called <code>composer.json</code> in the root level of your project.
+					</p>
+					<p>
+						After creating a proper file, you can run commands to install and update the software packages described in your file. These are <code>composer install</code> and <code>composer update</code>. (composer offers lots of other commands, too!)
+
+					</p>
+				</section>
+				<section>
+					<h2>composer.json</h2>
+					<pre>
+					<code>
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Seldaek/monolog"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.2",
+        "doctrine/orm": "@dev",
+        "guzzlehttp/guzzle": "~4.0",
+        "monolog/monolog": "1.12.0"
+    },
+    "scripts": {
+        "post-package-install": "php -v",
+        "post-install-cmd": "php -r 'echo \"Done Installing!\n\";'"
+    }
+}
+</code>
+				</pre>
+				</section>
+				<section>
+					<h2>How's it work (pt 2)</h2>
+					<p>
+						The <code>composer install</code> command reads all of your projects dependencies and downloads them to <code>./vendor</code>. It then creates a <code>composer.lock</code> file. This file gets added to your version control and then gets deployed with your project.
+					</p>
+				</section>
+				<section>
+					<h2>More Commands with Composer</h2>
+					<pre class="fragment"><code>Available commands:
+ about            Short information about Composer
+ archive          Create an archive of this composer package
+ browse           Opens the package's repository URL or homepage in your browser.
+ clear-cache      Clears composer's internal package cache.
+ clearcache       Clears composer's internal package cache.
+ config           Set config options
+ create-project   Create new project from a package into given directory.
+ depends          Shows which packages depend on the given package
+ diagnose         Diagnoses the system to identify common errors.
+ dump-autoload    Dumps the autoloader
+ dumpautoload     Dumps the autoloader
+ global           Allows running commands in the global composer dir ($COMPOSER_HOME).
+ help             Displays help for a command
+ home             Opens the package's repository URL or homepage in your browser.
+ info             Show information about packages
+ init             Creates a basic composer.json file in current directory.
+ install          Installs the project dependencies from the composer.lock file if present, or falls back on the composer.json.
+ licenses         Show information about licenses of dependencies
+ list             Lists commands
+ remove           Removes a package from the require or require-dev
+ require          Adds required packages to your composer.json and installs them
+ run-script       Run the scripts defined in composer.json.
+ search           Search for packages
+ self-update      Updates composer.phar to the latest version.
+ selfupdate       Updates composer.phar to the latest version.
+ show             Show information about packages
+ status           Show a list of locally modified packages
+ update           Updates your dependencies to the latest version according to composer.json, and updates the composer.lock file.
+ validate         Validates a composer.json
+					</code></pre>
+				</section>
+				<section data-background="assets/packagist1.png">
+					<h4>packagist.org</h4>
+				</section>
+				<section data-background="assets/packagist2.png">
+					<h4>packagist.org</h4>
+				</section>
+				<section data-background-video="assets/demofail.mp4">
+					<h1>It's DEMO TIME!</h1>
+				</section>
+
+								</div>
+
+			</div>
+
+			<script src="lib/js/head.min.js"></script>
+			<script src="js/reveal.js"></script>
+
+			<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+				{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+				{ src: 'plugin/zoom-js/zoom.js', async: true },
+				{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+	</html>
